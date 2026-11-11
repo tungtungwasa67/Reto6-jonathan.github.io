@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jonathan Coronado Reto 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Paleta de tonos fríos */
+      --bg-dark: #0a131c;
+      --bg-card: #122130;
+      --bg-card-hover: #1a2d40;
+      --accent-cool-cyan: #00f2fe;
+      --accent-cool-blue: #4facfe;
+      --accent-cool-teal: #00d2ff;
+      --accent-mint: #38ef7d;
+      --text-main: #f0f7ff;
+      --text-muted: #8ea8c3;
+      --border-color: #1e3a54;
+      --gradient-brand: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00d2ff 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(10, 19, 28, 0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid var(--border-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 2px solid transparent;
+      color: var(--text-muted);
+      padding: 0.6rem 1.2rem;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--accent-cool-cyan);
+      background: rgba(0, 242, 254, 0.1);
+    }
+
+    .nav-btn.active {
+      background: var(--accent-cool-blue);
+      color: #040d16;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    /* Action bar with Back Button */
+    .top-actions {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-back {
+      background: rgba(30, 58, 84, 0.6);
+      border: 1px solid var(--border-color);
+      color: var(--accent-cool-cyan);
+      padding: 0.5rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: var(--accent-cool-blue);
+      color: #040d16;
+      transform: translateX(-3px);
+    }
+
+    /* Container & Pages */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      color: var(--accent-cool-cyan);
+      margin: 1.8rem 0 1rem 0;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #c0d4e8;
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .highlight-text {
+      color: var(--accent-cool-cyan);
+      font-weight: 700;
+    }
+
+    /* Components & Cards */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.12) 100%);
+      border: 2px solid var(--accent-cool-blue);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner h1 {
+      font-size: 3.2rem;
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: var(--accent-cool-cyan);
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.8rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-cool-cyan);
+      background: var(--bg-card-hover);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-cool-cyan);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Custom List */
+    ul.custom-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    ul.custom-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--text-main);
+    }
+
+    ul.custom-list li::before {
+      content: "❄️";
+      font-size: 1rem;
+    }
+
+    /* Media Embeds & Images */
+    .img-wrapper {
+      width: 100%;
+      height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      border: 2px solid var(--border-color);
+    }
+
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .img-wrapper:hover img {
+      transform: scale(1.05);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.2rem;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-card h3 {
+      font-size: 1.2rem;
+      color: var(--accent-cool-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .video-card p {
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* External Links & Buttons */
+    .btn-youtube {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: #ff0000;
+      color: #ffffff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    }
+
+    .btn-youtube:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255, 0, 0, 0.5);
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--accent-cool-blue), var(--accent-cool-cyan));
+      color: #040d16;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .btn-link:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+    }
+
+    /* Form Styling */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--accent-cool-cyan);
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-cool-cyan);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-cool-blue);
+      color: #040d16;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-cool-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    footer span {
+      color: var(--accent-cool-cyan);
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-banner h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="logo">Jonathan Coronado Reto 6</div>
+    <nav>
+      <button class="nav-btn active" onclick="navigateTo('inicio')">Inicio</button>
+      <button class="nav-btn" onclick="navigateTo('sobre-mi')">Sobre Mí</button>
+      <button class="nav-btn" onclick="navigateTo('intereses')">Mis Intereses</button>
+      <button class="nav-btn" onclick="navigateTo('contacto')">Contacto</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- PAGE 1: INICIO (PORTADA) -->
+    <section id="inicio" class="page active">
+      <div class="top-actions">
+        <button class="btn-back" onclick="goBack()" style="visibility: hidden;">⬅ Regresar</button>
+      </div>
+      <div class="hero-banner">
+        <h1>¡Bienvenidos a mi Espacio Digital! 🚀</h1>
+        <p class="tagline">Energía, Gastronomía y Aventuras por Sonora</p>
+      </div>
+
+      <h2>⚡ ¿De qué trata este sitio?</h2>
+      <p>¡Hola a todos! Bienvenidos a mi sitio web oficial desarrollado para el <strong>Reto 6</strong>. Aquí encontrarás un vistazo dinámico y directo a mis pasiones más grandes: desde el sudor en el gimnasio hasta el sazón en la cocina y los paisajes impresionantes del hermoso estado de Sonora.</p>
+
+      <div class="grid-container">
+        <div class="card">
+          <div class="card-title">💪 Fitness & Gym</div>
+          <p>Superando límites cada día, aprendiendo de constancia y construyendo la mejor versión física y mental.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🌵 Turismo Sonora</div>
+          <p>Explorando desde el desierto sagrado hasta la costa del Mar de Cortés. ¡Un estado increíble por descubrir!</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🍳 Pasión Culinaria</div>
+          <p>Creando recetas deliciosas, proteicas y con el inigualable toque sonorense. ¡La buena comida no se negocia!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: SOBRE MI -->
+    <section id="sobre-mi" class="page">
+      <div class="top-actions">
+        <button class="btn-back" onclick="goBack()">⬅ Regresar a la página anterior</button>
+      </div>
+      <h1>Sobre Mí ⚡</h1>
+      
+      <p>
+        ¡Qué onda! Soy Jonathan y te apuesto a que mi rutina no es nada aburrida. Si me buscas por la tarde, me la pasaría en mi casa haciendo ejercicio sufriendo en la última repetición pero disfrutando el proceso al 100%, no voy al gimnasio porque me da flojera salir. Pero no todo es sudor: cuando termino de hacer mi rutina se me da un hambre pero bien maciza y me meto directo a la cocina a preparar desde una pechuga de pollo. Y claro, no puedo dejar de lado el turismo en Sonora; soy fan de agarrar ruta hacia las playas de San Carlos, tomar fotos en los atardeceres dorados del desierto o ir a los pueblos mágicos a comer coyotas calientitas. ¡Una combinación de energía, sabor y viaje! Sin olvidar que en vacaciones siempre voy a Navojoa, a pesar de ya haber ido como 1000 veces, sigo descubriendo cosas nuevas de ahí.
+      </p>
+
+      <!-- Imagen local/destacada -->
+      <div class="img-wrapper">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" alt="Paisaje de Sonora y Mar de Cortés">
+      </div>
+
+      <h2>🎥 Videos Específicos Integrados</h2>
+      <p>A continuación puedes ver los videos solicitados directamente integrados en la página o abrirlos en YouTube:</p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/l9k6PFow0ls" title="PROBANDO LA COMIDA TÍPICA DE SONORA 🌭 - ElMariana" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div>
+            <h3>🌭 PROBANDO LA COMIDA TÍPICA DE SONORA</h3>
+            <p><strong>ElMariana</strong> recorre Hermosillo probando tortillas sobaqueras, coyotas, carne asada y dogos en El Miami.</p>
+          </div>
+          <a href="https://www.youtube.com/watch?v=l9k6PFow0ls" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+            ▶ Ver "Comida Típica de Sonora" en YouTube
+          </a>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/vOd6uMQCoDw" title="7 Lugares de Sonora que No Creerás que Existen - El Viejo Mexicano" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div>
+            <h3>🌵 7 Lugares de Sonora que No Creerás que Existen</h3>
+            <p><strong>El Viejo Mexicano</strong> muestra las maravillas naturales de Sonora, incluyendo El Pinacate, Isla Tiburón, el cañón de Nacapule y más.</p>
+          </div>
+          <a href="https://www.youtube.com/watch?v=vOd6uMQCoDw" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+            ▶ Ver "7 Lugares de Sonora" en YouTube
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: MIS INTERESES -->
+    <section id="intereses" class="page">
+      <div class="top-actions">
+        <button class="btn-back" onclick="goBack()">⬅ Regresar a la página anterior</button>
+      </div>
+      <h1>Mis Intereses & Pasatiempos 🎯</h1>
+      <p>La vida de un estudiante de preparatoria tiene que estar llena de equilibrio entre disciplina, creatividad y exploración. Mis tres pilares fundamentales son:</p>
+
+      <ul class="custom-list">
+        <li><strong>Entrenamiento de Fuerza & Calistenia:</strong> Superar marcas personales y mantener un estilo de vida activo y saludable.</li>
+        <li><strong>Rutas Turísticas y Fotografía:</strong> Descubrir miradores, playas ocultas y el desierto sonorense.</li>
+        <li><strong>Arte Culinario & Nutrición:</strong> Experimentar con ingredientes locales, cortes de carne y repostería tradicional.</li>
+      </ul>
+
+      <h2>🌐 Recurso Externo Destacado</h2>
+      <p>Si quieres conocer más a fondo todos los destinos turísticos, eventos culturales y maravillas naturales de mi estado, te sugiero visitar la guía oficial:</p>
+      
+      <a href="https://www.visitsonora.mx" target="_blank" rel="noopener noreferrer" class="btn-link">
+        🔗 Visitar Turismo Sonora Oficial
+      </a>
+    </section>
+
+    <!-- PAGE 4: CONTACTO -->
+    <section id="contacto" class="page">
+      <div class="top-actions">
+        <button class="btn-back" onclick="goBack()">⬅ Regresar a la página anterior</button>
+      </div>
+      <h1>Contacto 📩</h1>
+      <p style="text-align: center; margin-bottom: 2rem;">¿Tienes sugerencias de rutas turísticas, recetas para compartir o alguna duda sobre el sitio? ¡Escríbeme un mensaje!</p>
+
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Jonathan lo recibirá pronto.');">
+        <div class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" placeholder="Tu nombre..." required>
+        </div>
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" placeholder="ejemplo@prepa.edu.mx" required>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Enviar Mensaje 🚀</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Sitio Web creado para el <span>Reto 6</span> | Proyecto de <span>Jonathan Coronado</span> © 2026</p>
+  </footer>
+
+  <script>
+    // Sistema de historial de navegación interna
+    let navigationHistory = ['inicio'];
+
+    function navigateTo(pageId) {
+      const current = navigationHistory[navigationHistory.length - 1];
+      if (current !== pageId) {
+        navigationHistory.push(pageId);
+      }
+      renderPage(pageId);
+    }
+
+    function goBack() {
+      if (navigationHistory.length > 1) {
+        navigationHistory.pop();
+        const previousPage = navigationHistory[navigationHistory.length - 1];
+        renderPage(previousPage);
+      }
+    }
+
+    function renderPage(pageId) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      const selectedPage = document.getElementById(pageId);
+      if (selectedPage) {
+        selectedPage.classList.add('active');
+      }
+
+      const activeBtn = Array.from(buttons).find(btn => 
+        btn.getAttribute('onclick').includes(pageId)
+      );
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
